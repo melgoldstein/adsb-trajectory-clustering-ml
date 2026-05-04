@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "adsb-trajectory-clustering-ml"
+version = "0.1.0"
+readme = "README.md"
+description = "adsb trajectory clustering ml"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = ['numpy>=1.26', 'scipy>=1.11', 'scikit-learn>=1.4']
+[project.optional-dependencies]
+test = ["pytest>=8"]
+[project.scripts]
+adsb-cluster = "adsb_clustering.cluster_flightpaths:main"
+[tool.setuptools]
+packages = ["adsb_clustering"]
+package-dir = {"adsb_clustering" = "src"}
+[tool.pytest.ini_options]
+testpaths = ["tests"]

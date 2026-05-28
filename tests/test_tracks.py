@@ -22,6 +22,8 @@ def test_fixture_clusters():
 
 def test_conflicting_time(tmp_path):
     capture = tmp_path / "tracks.csv"
-    capture.write_text("flight_id,timestamp_s,latitude,longitude\na,0,28,-80\na,0,29,-80\n")
+    capture.write_text(
+        "flight_id,timestamp_s,latitude,longitude\na,0,28,-80\na,0,29,-80\n"
+    )
     with pytest.raises(ValueError, match="conflicting"):
         resample_tracks(capture)

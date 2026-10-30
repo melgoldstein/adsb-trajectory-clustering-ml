@@ -1,5 +1,7 @@
 # ADS-B trajectory clustering
 
+[![Verification](https://github.com/cankaan120/adsb-trajectory-clustering-ml/actions/workflows/ci.yml/badge.svg)](https://github.com/cankaan120/adsb-trajectory-clustering-ml/actions/workflows/ci.yml)
+
 Cluster whole flights with band-limited dynamic time warping and DBSCAN.
 The distance matrix preserves corridor location; a separate closure/turning test
 marks holding candidates without treating a cluster label as an operational verdict.
@@ -24,3 +26,20 @@ The bundled seeded tracks describe two patterns and an outlier around Central
 Florida. These labels test geometry, not performance on an operational receiver.
 Local tangent coordinates are intended for this regional extent; use a suitable
 projection for wider areas. MIT.
+
+## Development
+
+```sh
+git clone https://github.com/cankaan120/adsb-trajectory-clustering-ml.git
+cd adsb-trajectory-clustering-ml
+python -m venv .venv
+# Activate .venv with your shell, then:
+python -m pip install -e ".[test]" ruff==0.17.3 build
+python -m pytest -q
+python -m ruff check --select E9,F63,F7,F82 src tests
+python -m ruff format --check src tests
+python -m build
+```
+
+Report defects with the command, input shape or minimal fixture, and runtime version.
+Regression tests should reproduce the failure and preserve the documented units.

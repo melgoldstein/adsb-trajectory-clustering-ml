@@ -5,6 +5,15 @@ from adsb_clustering.cluster_flightpaths import cluster, dtw_distance
 from adsb_clustering.preprocess import resample_tracks
 
 
+@pytest.mark.parametrize(
+    "invalid",
+    [np.zeros(4), np.zeros((2, 3)), np.full((2, 2), np.nan), np.empty((0, 2))],
+)
+def test_invalid_dtw_geometry(invalid):
+    with pytest.raises(ValueError, match="DTW"):
+        dtw_distance(invalid, np.zeros((2, 2)))
+
+
 def test_dtw_symmetry():
     first = np.array([[0.0, 0.0], [1.0, 2.0], [3.0, 4.0]])
     second = first + 1

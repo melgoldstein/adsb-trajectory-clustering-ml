@@ -11,7 +11,18 @@ def dtw_distance(
     first: NDArray[np.float64], second: NDArray[np.float64], window: int = 8
 ) -> float:
     """Symmetric banded DTW cost in km, normalized by total sequence length."""
-    if window < 0 or len(first) == 0 or len(second) == 0:
+    first, second = np.asarray(first, dtype=float), np.asarray(second, dtype=float)
+    if (
+        not isinstance(window, int)
+        or window < 0
+        or any(
+            trajectory.ndim != 2
+            or trajectory.shape[1:] != (2,)
+            or len(trajectory) == 0
+            or not np.isfinite(trajectory).all()
+            for trajectory in (first, second)
+        )
+    ):
         raise ValueError("invalid DTW input")
     width = max(window, abs(len(first) - len(second)))
     previous = np.full(len(second) + 1, np.inf)
@@ -72,9 +83,15 @@ def main() -> None:
     parser.add_argument("--epsilon-km", type=float, default=2)
     parser.add_argument("--min-samples", type=int, default=3)
     arguments = parser.parse_args()
+    try:
+        results = cluster(
+            arguments.capture, arguments.epsilon_km, arguments.min_samples
+        )
+    except (OSError, ValueError) as error:
+        parser.error(str(error))
     print(
         json.dumps(
-            cluster(arguments.capture, arguments.epsilon_km, arguments.min_samples),
+            results,
             indent=2,
         )
     )

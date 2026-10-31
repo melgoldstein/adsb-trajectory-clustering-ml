@@ -1,6 +1,8 @@
 # ADS-B trajectory clustering
 
-[![Verification](https://github.com/cankaan120/adsb-trajectory-clustering-ml/actions/workflows/ci.yml/badge.svg)](https://github.com/cankaan120/adsb-trajectory-clustering-ml/actions/workflows/ci.yml)
+[Portfolio: melgoldstein.com](https://melgoldstein.com/)
+
+[![Verification](https://github.com/melgoldstein/adsb-trajectory-clustering-ml/actions/workflows/ci.yml/badge.svg)](https://github.com/melgoldstein/adsb-trajectory-clustering-ml/actions/workflows/ci.yml)
 
 Cluster whole flights with band-limited dynamic time warping and DBSCAN.
 The distance matrix preserves corridor location; a separate closure/turning test
@@ -30,7 +32,7 @@ projection for wider areas. MIT.
 ## Development
 
 ```sh
-git clone https://github.com/cankaan120/adsb-trajectory-clustering-ml.git
+git clone https://github.com/melgoldstein/adsb-trajectory-clustering-ml.git
 cd adsb-trajectory-clustering-ml
 python -m venv .venv
 # Activate .venv with your shell, then:
